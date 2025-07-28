@@ -16,6 +16,9 @@ const TaskSchema  = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tags'
     }],
+    taskTool:{
+        type:String
+    },
     dueDate:{
         type: Date
     },

@@ -1,3 +1,5 @@
+// Register Tags model
+require('./tags/tags.model');
 const express = require('express');
 const app = express();
 const cors = require('cors');

@@ -7,7 +7,7 @@ const TagsSchema = new mongoose.Schema({
     description:{
         type: String
     },
-} , {timestamsp:true})
+} , {timestamps:true})
 
 const TagsEntity = mongoose.model('Tags' , TagsSchema)
 module.exports = TagsEntity;
