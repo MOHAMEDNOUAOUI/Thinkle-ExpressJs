@@ -1,10 +1,20 @@
 const tasksService = require('./tasks.service')
 const GlobalResposne = require('../../utils/GlobalResponse')
+const {validateTaskInput , taskCreateDto} = require('./dtos/tasksCreateDto');
+const { plainToClass, plainToInstance } = require('class-transformer');
 
 exports.createTask = async (req , res) => {
         try{
-            const taskCreateDto = req.body;
-            const createdTask = await tasksService.createTask(taskCreateDto);
+            const Task = plainToInstance(taskCreateDto , req.body);
+            const {isValid , errors} = validateTaskInput(Task)
+            if(!isValid){
+                return res.status(400).json({
+                    success: false,
+                message: "Validation failed",
+                errors
+                })
+            }
+            const createdTask = await tasksService.createTask(Task);
             return GlobalResposne.createdResponse(res, createdTask, "Task created successfully");
         }catch(err){
             return GlobalResposne.errorResponse(res, err, "Failed to create task");
